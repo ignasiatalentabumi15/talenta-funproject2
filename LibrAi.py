@@ -55,7 +55,7 @@ st.markdown(
 
 #API function
 def get_ai_response(messages_payload, model):
-    api_key = "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"
+    api_key = ""
     response = requests.post(
         url="https://openrouter.ai/api/v1/chat/completions",
         headers={
@@ -141,3 +141,4 @@ if prompt := st.chat_input("Tulis pesan..."):
                 st.session_state.messages.pop() # Hapus pesan user terakhir jika ada error
 
 ########################################################################
+

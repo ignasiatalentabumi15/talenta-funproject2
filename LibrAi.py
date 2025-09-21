@@ -140,17 +140,4 @@ if prompt := st.chat_input("Tulis pesan..."):
                 st.error("Error: Gagal mendapatkan respons dari AI")
                 st.session_state.messages.pop() # Hapus pesan user terakhir jika ada error
 
-        #Get AI Response
-        with st.chat_message("assistant"):
-            with st.spinner("Please wait"):
-                # Create API Request
-                messages_for_api = st.session_state.messages.copy()
-                #  HIT FUNCTION API
-                ai_response = get_ai_response(messages_for_api, selected_model)
-                if ai_response:
-                    st.markdown(ai_response)
-                    st.session_state.messages.append({"role": "assistant", "content": ai_response})
-                else:
-                    st.error("Error: Gagal mendapatkan respons dari AI")
-                    st.session_state.messages.pop()  # Remove the last message if there's an error
 ########################################################################

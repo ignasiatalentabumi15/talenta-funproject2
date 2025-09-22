@@ -83,7 +83,9 @@ with st.sidebar:
     model_options = {
         "Mistral 7B (Free)": "mistralai/mistral-7b-instruct:free",
         "DeepSeek V3 (Free)": "deepseek/deepseek-chat-v3-0324:free",
-        "Llama 3.1 8B (Free)": "meta-llama/llama-3.1-8b-instruct:free"
+        "Llama 3.1 8B (Free)": "meta-llama/llama-3.1-8b-instruct:free",
+        "gpt-oss-120b (Free)": "openai/gpt-oss-120b:free",
+        "grok-4-fast (Free)": "x-ai/grok-4-fast:free"
     }
     selected_model_name = st.selectbox("Select Model", options=list(model_options.keys()), index=0)
     selected_model = model_options[selected_model_name]
@@ -141,3 +143,4 @@ if prompt := st.chat_input("Write your message here..."):
                 st.session_state.messages.pop() # Hapus pesan user terakhir jika ada error
 
 ###################################
+

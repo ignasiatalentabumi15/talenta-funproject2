@@ -55,7 +55,7 @@ st.markdown(
 
 #API function
 def get_ai_response(messages_payload, model):
-    api_key = ""
+    api_key = st.secrets["OPENROUTER_API_KEY"]
     response = requests.post(
         url="https://openrouter.ai/api/v1/chat/completions",
         headers={
@@ -77,7 +77,7 @@ def get_ai_response(messages_payload, model):
 
 #sidebar check
 with st.sidebar:
-    st.title("⚙️ Pengaturan Chat")
+    st.title("⚙️ Settings")
     
     # Model Selector
     model_options = {
@@ -85,11 +85,11 @@ with st.sidebar:
         "DeepSeek V3 (Free)": "deepseek/deepseek-chat-v3-0324:free",
         "Llama 3.1 8B (Free)": "meta-llama/llama-3.1-8b-instruct:free"
     }
-    selected_model_name = st.selectbox("Pilih Model", options=list(model_options.keys()), index=0)
+    selected_model_name = st.selectbox("Select Model", options=list(model_options.keys()), index=0)
     selected_model = model_options[selected_model_name]
     
     st.markdown("---") 
-    st.subheader("⏱️ Riwayat Chat")
+    st.subheader("⏱️ Chat History")
 
     # Kode Riwayat Chat
     if st.session_state.messages:
@@ -113,19 +113,19 @@ with st.sidebar:
 st.title("♎︎ Chatbot LibrAI")
 
 
-# Display chat history
+# Chat history display
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
 # Handle user input
-if prompt := st.chat_input("Tulis pesan..."):
-    # 1. Tambahkan prompt user ke history
+if prompt := st.chat_input("Write your message here..."):
+    # Prompt dari user
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
         st.markdown(prompt)
 
-    # 2. Dapatkan Respons AI
+    # Respons dari AI
     with st.chat_message("assistant"):
         with st.spinner("Please wait"):
             messages_for_api = st.session_state.messages.copy()
@@ -140,5 +140,4 @@ if prompt := st.chat_input("Tulis pesan..."):
                 st.error("Error: Gagal mendapatkan respons dari AI")
                 st.session_state.messages.pop() # Hapus pesan user terakhir jika ada error
 
-########################################################################
-
+###################################
